@@ -4,9 +4,14 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-pom.xml
 .DS_Store
 **/.DS_Store
+pom.xml
+**/pom.xml
+application.yaml
+**/application.yaml
+application.yml
+**/application.yml
 
 ### STS ###
 .apt_generated
