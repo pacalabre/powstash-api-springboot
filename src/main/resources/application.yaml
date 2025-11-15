@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: powstash
-  datasource:
-    url:
-    username:
-    password:
-  jpa:
-    show-sql: true

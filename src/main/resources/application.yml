@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: powstash
+  datasource:
+    url: ${JAVA_POWSTASH_URL}
+    username: ${JAVA_USER}
+    password: ${JAVA_MYSQL_PASSWORD}
+  jpa:
+    show-sql: true
