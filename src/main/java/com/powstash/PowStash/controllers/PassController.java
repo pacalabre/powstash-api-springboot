@@ -6,6 +6,7 @@ import com.powstash.PowStash.repositories.PassRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -34,10 +35,13 @@ public class PassController {
     }
 
     @PostMapping
-    private ResponseEntity<PassDto> createPass(@RequestBody Pass request) {
+    private ResponseEntity<PassDto> createPass(@RequestBody Pass request, UriComponentsBuilder uriBuilder) {
         var newPass = passRepository.save(request);
         var passDto = passMapper.toDto(newPass);
-        return ResponseEntity.ok(passDto);
+        //return ResponseEntity.ok(passDto);
+
+        var uri = uriBuilder.path("/pass/{id}").buildAndExpand(newPass.getId()).toUri();
+        return ResponseEntity.created(uri).body(passDto);
     }
 
     @PutMapping("/{id}")
