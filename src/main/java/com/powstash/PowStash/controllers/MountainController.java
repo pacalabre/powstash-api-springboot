@@ -50,6 +50,7 @@ public class MountainController {
             return  ResponseEntity.notFound().build();
         }
         response.setName(request.getName());
+        response.setState_id(request.getState_id());
         mountainRepository.save(response);
         return ResponseEntity.ok(response);
     }
@@ -63,5 +64,6 @@ public class MountainController {
         }
         return ResponseEntity.notFound().build();
     }
+
 
 }
