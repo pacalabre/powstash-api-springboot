@@ -5,6 +5,7 @@ import com.powstash.PowStash.dtos.StateDto;
 import com.powstash.PowStash.entities.Mountain;
 import com.powstash.PowStash.entities.State;
 import com.powstash.PowStash.mappers.StateMapper;
+import com.powstash.PowStash.repositories.MountainRepository;
 import com.powstash.PowStash.repositories.StateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequestMapping("/states")
 public class StateController {
     private StateRepository stateRepository;
+    private MountainRepository mountainRepository;
     private final StateMapper stateMapper;
 
     @GetMapping
@@ -35,6 +37,13 @@ public class StateController {
         }
         var responseDto = stateMapper.toDto(response);
         return ResponseEntity.ok(responseDto);
+    }
+
+    @GetMapping("/{id}/mountains")
+    private List<MountainDto> getMountainsByState(@PathVariable int id) {
+        var list = mountainRepository.findByStateId(id);
+        System.out.println("List~~~~ " +list.stream().toList());
+        return list.stream().map(mountain -> new MountainDto(mountain.getId(), mountain.getName(), mountain.getState().getId())).toList();
     }
 
     @PostMapping
