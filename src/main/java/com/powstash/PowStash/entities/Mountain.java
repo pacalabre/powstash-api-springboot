@@ -19,6 +19,7 @@ public class Mountain {
     @Column(name="name")
     private String name;
 
-    @Column(name="state_id")
-    private int state_id;
+    @ManyToOne
+    @JoinColumn(name="state_id")
+    private State state;
 }

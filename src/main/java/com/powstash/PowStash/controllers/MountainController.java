@@ -4,6 +4,7 @@ import com.powstash.PowStash.dtos.MountainDto;
 import com.powstash.PowStash.entities.Mountain;
 import com.powstash.PowStash.mappers.MountainMapper;
 import com.powstash.PowStash.repositories.MountainRepository;
+import com.powstash.PowStash.repositories.StateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 public class MountainController {
     private MountainRepository mountainRepository;
     private final MountainMapper mountainMapper;
+    private final StateRepository stateRepository;
 
     @GetMapping
     public List<MountainDto> getAllMountains() {
@@ -25,18 +27,22 @@ public class MountainController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MountainDto> getMountain(@PathVariable int id) {
+    public ResponseEntity<Mountain> getMountain(@PathVariable int id) {
         var mountain = mountainRepository.findById(id).orElse(null);
         if(mountain == null) {
             return ResponseEntity.notFound().build();
         }
-        var dto = new MountainDto(mountain.getId(), mountain.getName(), mountain.getState_id());
-        return ResponseEntity.ok(dto);
+        var dto = new MountainDto(mountain.getId(), mountain.getName(), mountain.getState().getId());
+        return ResponseEntity.ok(mountain);
     }
-
+    
     @PostMapping
     public ResponseEntity<MountainDto> createMountain(@RequestBody MountainDto request, UriComponentsBuilder uriBuilder) {
+       // Add lines to a service, create get mountains by state ID endpoint
         var mountain = mountainMapper.toEntity(request);
+        var state = stateRepository.findById(request.getState_id()).orElseThrow();
+        mountain.setState(state);
+        // End add lines to a service
         var response = mountainRepository.save(mountain);
         var mountainDto = mountainMapper.toDto(response);
         var uri = uriBuilder.path("/mountains/{id}").buildAndExpand(response.getId()).toUri();
@@ -50,7 +56,7 @@ public class MountainController {
             return  ResponseEntity.notFound().build();
         }
         response.setName(request.getName());
-        response.setState_id(request.getState_id());
+        //response.setState_id(request.getState().getId());
         mountainRepository.save(response);
         return ResponseEntity.ok(response);
     }

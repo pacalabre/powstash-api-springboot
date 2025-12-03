@@ -1,6 +1,8 @@
 package com.powstash.PowStash.controllers;
 
+import com.powstash.PowStash.dtos.MountainDto;
 import com.powstash.PowStash.dtos.StateDto;
+import com.powstash.PowStash.entities.Mountain;
 import com.powstash.PowStash.entities.State;
 import com.powstash.PowStash.mappers.StateMapper;
 import com.powstash.PowStash.repositories.StateRepository;
