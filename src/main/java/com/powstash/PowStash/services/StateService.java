@@ -31,7 +31,7 @@ public class StateService implements StateServiceInterface {
 
     public List<MountainDto> getMountainsByState(int id) {
         var list = mountainRepository.findByStateId(id);
-        return list.stream().map(mountain -> new MountainDto(mountain.getId(), mountain.getName(), mountain.getState().getId())).toList();
+        return list.stream().map(mountain -> new MountainDto(mountain.getId(), mountain.getName(), mountain.getState().getId(),mountain.getPass().getId())).toList();
     }
 
     public StateDto createState(State request) {

@@ -22,4 +22,8 @@ public class Mountain {
     @ManyToOne
     @JoinColumn(name="state_id")
     private State state;
+
+    @ManyToOne
+    @JoinColumn(name="pass_id")
+    private Pass pass;
 }

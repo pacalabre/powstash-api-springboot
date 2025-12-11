@@ -3,6 +3,9 @@ package com.powstash.PowStash.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -18,4 +21,7 @@ public class Pass {
 
     @Column(name="name")
     private String name;
+
+    @OneToMany(mappedBy = "pass", cascade = CascadeType.ALL)
+    private Set<Mountain> mountains= new HashSet<Mountain>();
 }

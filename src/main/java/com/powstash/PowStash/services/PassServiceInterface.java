@@ -1,5 +1,6 @@
 package com.powstash.PowStash.services;
 
+import com.powstash.PowStash.dtos.MountainDto;
 import com.powstash.PowStash.dtos.PassDto;
 import com.powstash.PowStash.entities.Pass;
 
@@ -11,4 +12,5 @@ public interface PassServiceInterface {
     public PassDto createPass(Pass request);
     public PassDto updatePass(Pass request, int id);
     public PassDto deletePass(int id);
+    public List<MountainDto> getMountainsByPass(int id);
 }

@@ -1,4 +1,5 @@
 package com.powstash.PowStash.controllers;
+import com.powstash.PowStash.dtos.MountainDto;
 import com.powstash.PowStash.dtos.PassDto;
 import com.powstash.PowStash.entities.Pass;
 import com.powstash.PowStash.mappers.PassMapper;
@@ -31,6 +32,12 @@ public class PassController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(pass);
+    }
+
+    @GetMapping("/{id}/mountains")
+    private  ResponseEntity<List<MountainDto>> getMountainsByPass(@PathVariable int id) {
+        var mountains = passService.getMountainsByPass(id);
+        return ResponseEntity.ok(mountains);
     }
 
     @PostMapping

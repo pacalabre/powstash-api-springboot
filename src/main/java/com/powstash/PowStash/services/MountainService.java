@@ -4,6 +4,7 @@ import com.powstash.PowStash.dtos.MountainDto;
 import com.powstash.PowStash.entities.Mountain;
 import com.powstash.PowStash.mappers.MountainMapper;
 import com.powstash.PowStash.repositories.MountainRepository;
+import com.powstash.PowStash.repositories.PassRepository;
 import com.powstash.PowStash.repositories.StateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class MountainService implements MountainServiceInterface {
     private MountainRepository mountainRepository;
     private final MountainMapper mountainMapper;
     private final StateRepository stateRepository;
+    private final PassRepository passRepository;
 
 
     public List<MountainDto> findAllMountains() {
@@ -31,7 +33,9 @@ public class MountainService implements MountainServiceInterface {
     public MountainDto createMountain(MountainDto request) {
         var mountain = mountainMapper.toEntity(request);
         var state = stateRepository.findById(request.getState_id()).orElseThrow();
+        var pass = passRepository.findById(request.getPass_id()).orElseThrow();
         mountain.setState(state);
+        mountain.setPass(pass);
         var response = mountainRepository.save(mountain);
         return mountainMapper.toDto(response);
     }

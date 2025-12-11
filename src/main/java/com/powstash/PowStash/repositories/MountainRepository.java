@@ -7,4 +7,5 @@ import java.util.Set;
 
 public interface MountainRepository extends JpaRepository<Mountain, Integer> {
     Set<Mountain> findByStateId(int state_id);
+    Set<Mountain> findByPassId(int pass_id);
 }
