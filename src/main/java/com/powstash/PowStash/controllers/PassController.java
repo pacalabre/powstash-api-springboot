@@ -3,6 +3,7 @@ import com.powstash.PowStash.dtos.PassDto;
 import com.powstash.PowStash.entities.Pass;
 import com.powstash.PowStash.mappers.PassMapper;
 import com.powstash.PowStash.repositories.PassRepository;
+import com.powstash.PowStash.services.PassService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,52 +17,44 @@ import java.util.List;
 public class PassController {
     private PassRepository passRepository;
     private final PassMapper passMapper;
+    private final PassService passService;
 
     @GetMapping
     private List<PassDto> getAllPasses() {
-        var passes = passRepository.findAll();
-        var passDtos = passes.stream().map(passMapper::toDto);
-        return passDtos.toList();
+        return passService.getAllPasses();
     }
 
     @GetMapping("/{id}")
     private ResponseEntity<PassDto> getPass(@PathVariable int id) {
-        var pass = passRepository.findById(id).orElse(null);
+        var pass = passService.getPass(id);
         if(pass == null) {
             return ResponseEntity.notFound().build();
         }
-        var passDto = passMapper.toDto(pass);
-        return ResponseEntity.ok(passDto);
+        return ResponseEntity.ok(pass);
     }
 
     @PostMapping
     private ResponseEntity<PassDto> createPass(@RequestBody Pass request, UriComponentsBuilder uriBuilder) {
-        var newPass = passRepository.save(request);
-        var passDto = passMapper.toDto(newPass);
-        //return ResponseEntity.ok(passDto);
-
+        var newPass = passService.createPass(request);
         var uri = uriBuilder.path("/pass/{id}").buildAndExpand(newPass.getId()).toUri();
-        return ResponseEntity.created(uri).body(passDto);
+        return ResponseEntity.created(uri).body(newPass);
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<Pass> updatePass(@PathVariable int id, @RequestBody Pass request) {
-        var passToUpdate = passRepository.findById(id).orElse(null);
+    private ResponseEntity<PassDto> updatePass(@PathVariable int id, @RequestBody Pass request) {
+        var passToUpdate = passService.updatePass(request, id);
         if(passToUpdate == null) {
             return ResponseEntity.notFound().build();
         }
-        passToUpdate.setName(request.getName());
-        passRepository.save(passToUpdate);
-        return  ResponseEntity.ok().build();
+        return  ResponseEntity.ok(passToUpdate);
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Pass> deletePass(@PathVariable int id) {
-        var passToDelete = passRepository.findById(id).orElse(null);
+    private ResponseEntity<PassDto> deletePass(@PathVariable int id) {
+        var passToDelete = passService.deletePass(id);
         if(passToDelete == null) {
             return ResponseEntity.notFound().build();
         }
-        passRepository.delete(passToDelete);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(passToDelete);
     }
 }
