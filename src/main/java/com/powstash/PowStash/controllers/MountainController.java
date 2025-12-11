@@ -47,12 +47,12 @@ public class MountainController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMountain(@PathVariable int id) {
+    public ResponseEntity<MountainDto> deleteMountain(@PathVariable int id) {
         var response = mountainService.deleteMountain(id);
         if(response == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(response);
     }
 
 }
