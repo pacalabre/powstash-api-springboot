@@ -19,6 +19,21 @@ public class Mountain {
     @Column(name="name")
     private String name;
 
+    @Column(name="description")
+    private String description;
+
+    @Column(name="address")
+    private String address;
+
+    @Column(name="longitude")
+    private String longitude;
+
+    @Column(name="latitude")
+    private String latitude ;
+
+    @Column(name="localKnowledge")
+    private String localKnowledge;
+
     @ManyToOne
     @JoinColumn(name="state_id")
     private State state;

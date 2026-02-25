@@ -8,6 +8,11 @@ import lombok.Data;
 public class MountainDto {
     private int id;
     private String name;
+    private String description;
+    private String address;
+    private String longitude;
+    private String latitude ;
+    private String localKnowledge;
     private int state_id;
     private int pass_id;
 }
