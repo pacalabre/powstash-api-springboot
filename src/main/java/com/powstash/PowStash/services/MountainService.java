@@ -27,7 +27,10 @@ public class MountainService implements MountainServiceInterface {
 
     public MountainDto findMountain(int id) {
         var mountain =  mountainRepository.findById(id).orElse(null);
-        return mountainMapper.toDto(mountain);
+        if(mountain == null) {
+            return null;
+        }
+        return new MountainDto(mountain.getId(), mountain.getName(), mountain.getDescription(),mountain.getAddress(), mountain.getLongitude(), mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId());
     }
 
     public MountainDto createMountain(MountainDto request) {
