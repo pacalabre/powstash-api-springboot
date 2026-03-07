@@ -21,8 +21,8 @@ public class MountainService implements MountainServiceInterface {
 
 
     public List<MountainDto> findAllMountains() {
-        var mountain =  mountainRepository.findAll();
-        return mountain.stream().map(mountainMapper::toDto).toList();
+        var mountains =  mountainRepository.findAll();
+        return mountains.stream().map(mountain -> new MountainDto(mountain.getId(),mountain.getName(),mountain.getDescription(),mountain.getAddress(),mountain.getLongitude(),mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId())).toList();
     }
 
     public MountainDto findMountain(int id) {
