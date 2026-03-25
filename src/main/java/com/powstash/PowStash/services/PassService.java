@@ -34,7 +34,7 @@ public class PassService implements PassServiceInterface {
 
     public List<MountainDto> getMountainsByPass(int id) {
         var mountains = mountainRepository.findByPassId(id);
-        return mountains.stream().map(mountain-> new MountainDto(mountain.getId(),mountain.getName(),mountain.getDescription(),mountain.getAddress(),mountain.getLongitude(),mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId())).toList();
+        return mountains.stream().map(mountain-> new MountainDto(mountain.getId(),mountain.getName(),mountain.getDescription(),mountain.getAddress(),mountain.getLongitude(),mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId(),mountain.getMountain_code())).toList();
     }
 
     public PassDto createPass(Pass request) {

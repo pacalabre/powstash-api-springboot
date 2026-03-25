@@ -22,7 +22,7 @@ public class MountainService implements MountainServiceInterface {
 
     public List<MountainDto> findAllMountains() {
         var mountains =  mountainRepository.findAll();
-        return mountains.stream().map(mountain -> new MountainDto(mountain.getId(),mountain.getName(),mountain.getDescription(),mountain.getAddress(),mountain.getLongitude(),mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId())).toList();
+        return mountains.stream().map(mountain -> new MountainDto(mountain.getId(),mountain.getName(),mountain.getDescription(),mountain.getAddress(),mountain.getLongitude(),mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId(),mountain.getMountain_code())).toList();
     }
 
     public MountainDto findMountain(int id) {
@@ -30,7 +30,7 @@ public class MountainService implements MountainServiceInterface {
         if(mountain == null) {
             return null;
         }
-        return new MountainDto(mountain.getId(), mountain.getName(), mountain.getDescription(),mountain.getAddress(), mountain.getLongitude(), mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId());
+        return new MountainDto(mountain.getId(), mountain.getName(), mountain.getDescription(),mountain.getAddress(), mountain.getLongitude(), mountain.getLatitude(),mountain.getLocalKnowledge(),mountain.getState().getId(),mountain.getPass().getId(), mountain.getMountain_code());
     }
 
     public MountainDto createMountain(MountainDto request) {

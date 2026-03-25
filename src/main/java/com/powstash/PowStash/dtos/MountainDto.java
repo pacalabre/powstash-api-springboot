@@ -15,4 +15,5 @@ public class MountainDto {
     private String localKnowledge;
     private int state_id;
     private int pass_id;
+    private String mountain_code;
 }

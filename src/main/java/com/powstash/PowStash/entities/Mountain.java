@@ -41,4 +41,7 @@ public class Mountain {
     @ManyToOne
     @JoinColumn(name="pass_id")
     private Pass pass;
+
+    @Column(name="mountain_code")
+    private String mountain_code;
 }
