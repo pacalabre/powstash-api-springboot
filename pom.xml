@@ -90,7 +90,7 @@
                 <version>10.15.0</version>
                 <configuration>
                     <!--suppress UnresolvedMavenProperty -->
-                    <url>${JAWSDB_URL}</url>
+                    <url>${JAVA_POWSTASH_URL}</url>
                     <!--suppress UnresolvedMavenProperty -->
                     <user>${JAVA_USER}</user>
                     <!--suppress UnresolvedMavenProperty -->
