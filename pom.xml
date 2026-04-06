@@ -64,7 +64,7 @@
             <artifactId>lombok</artifactId>
             <groupId>org.projectlombok</groupId>
             <version>1.18.44</version>
-            <scope>annotationProcessor</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
