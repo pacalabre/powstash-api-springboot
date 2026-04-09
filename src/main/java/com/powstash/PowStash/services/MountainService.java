@@ -49,6 +49,12 @@ public class MountainService implements MountainServiceInterface {
             return null;
         }
         response.setName(request.getName());
+        response.setDescription(request.getDescription());
+        response.setAddress(request.getAddress());
+        response.setLatitude(request.getLatitude());
+        response.setLongitude(request.getLongitude());
+        response.setLocalKnowledge(request.getLocalKnowledge());
+        response.setMountain_code(request.getMountain_code());
         mountainRepository.save(response);
         return mountainMapper.toDto(response);
     }
