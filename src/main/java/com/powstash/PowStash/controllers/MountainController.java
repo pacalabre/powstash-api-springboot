@@ -38,7 +38,7 @@ public class MountainController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MountainDto> updateMountain(@RequestBody Mountain request,@PathVariable int id ) {
+    public ResponseEntity<MountainDto> updateMountain(@RequestBody MountainDto request,@PathVariable int id ) {
         var response = mountainService.updateMountain(request, id);
         if(response == null) {
             return  ResponseEntity.notFound().build();

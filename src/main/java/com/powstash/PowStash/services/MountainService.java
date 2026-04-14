@@ -43,8 +43,10 @@ public class MountainService implements MountainServiceInterface {
         return mountainMapper.toDto(response);
     }
 
-    public MountainDto updateMountain(Mountain request, int id) {
+    public MountainDto updateMountain(MountainDto request, int id) {
         var response = mountainRepository.findById(id).orElse(null);
+        var pass = passRepository.findById(request.getPass_id()).orElseThrow();
+        System.out.println("PASS!!! "+pass);
         if(response == null) {
             return null;
         }
@@ -55,6 +57,7 @@ public class MountainService implements MountainServiceInterface {
         response.setLongitude(request.getLongitude());
         response.setLocalKnowledge(request.getLocalKnowledge());
         response.setMountain_code(request.getMountain_code());
+        response.setPass(pass);
         mountainRepository.save(response);
         return mountainMapper.toDto(response);
     }
