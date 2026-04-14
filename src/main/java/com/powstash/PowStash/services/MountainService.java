@@ -46,7 +46,7 @@ public class MountainService implements MountainServiceInterface {
     public MountainDto updateMountain(MountainDto request, int id) {
         var response = mountainRepository.findById(id).orElse(null);
         var pass = passRepository.findById(request.getPass_id()).orElseThrow();
-        System.out.println("PASS!!! "+pass);
+        var state = stateRepository.findById(request.getState_id()).orElseThrow();
         if(response == null) {
             return null;
         }
@@ -58,6 +58,7 @@ public class MountainService implements MountainServiceInterface {
         response.setLocalKnowledge(request.getLocalKnowledge());
         response.setMountain_code(request.getMountain_code());
         response.setPass(pass);
+        response.setState(state);
         mountainRepository.save(response);
         return mountainMapper.toDto(response);
     }
